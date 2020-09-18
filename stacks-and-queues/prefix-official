@@ -1,0 +1,68 @@
+//prefix-official
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int operation(int v1, int v2, char op) {
+    if (op == '+') {
+      return v1 + v2;
+    } else if (op == '-') {
+      return v1 - v2;
+    } else if (op == '*') {
+      return v1 * v2;
+    } else if (op == '/') {
+      return v1 / v2;
+    } else {
+      return 0;
+    }
+  }
+
+
+int main() {
+
+ string exp;getline(cin,exp);
+
+    // code
+    stack<int> vstack ;
+    stack<string> infix ;
+    stack<string> postfix ;
+    
+    for (int i = exp.length() - 1; i >= 0; i--) {
+      char ch = exp[i];
+
+      if (ch == '-' || ch == '+' || ch == '*' || ch == '/') {
+        int v1 = vstack.top();
+        vstack.pop();
+        int v2 = vstack.top();
+        vstack.pop();
+        int val = operation(v1, v2, ch);
+        vstack.push(val);
+
+        string inv1 = infix.top();
+        infix.pop();
+        string inv2 = infix.top();
+        infix.pop();
+        string inv = "(" + inv1 + ch + inv2 + ")";
+        infix.push(inv);
+
+        string postv1 = postfix.top();
+         postfix.pop();
+        string postv2 = postfix.top();
+         postfix.pop();
+        string postv = postv1 + postv2 + ch;
+        postfix.push(postv);
+      } else {
+          string s;
+          s.push_back(ch);
+        vstack.push(ch - '0');
+        infix.push(s);
+        postfix.push(s);
+      }
+    }
+
+    cout<<vstack.top()<<endl;
+    cout<<infix.top()<<endl;
+    cout<<postfix.top()<<endl;
+  }
