@@ -1,0 +1,29 @@
+// factorial-official
+
+#include<iostream>
+using namespace std;
+
+
+int fac(int n)
+{
+    if(n==1)
+    return 1;
+    
+    int fm1=fac(n-1);
+    int f=fm1*n;
+    return f;
+}
+
+
+
+
+
+
+
+int main()
+{
+    int n;
+    cin>>n;
+    int f= fac(n);
+    cout<<f<<endl;
+}
