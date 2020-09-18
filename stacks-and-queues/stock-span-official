@@ -1,0 +1,41 @@
+//stock-span-official
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n;cin>>n;
+    int a[n],b[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    
+    stack<int>st;
+    st.push(0);
+    b[0]=1;
+    
+    for(int i=1;i<n;i++)
+    {
+        while( st.size()>0 && a[i]>a[st.top()] )
+        {
+            st.pop();
+        }
+        
+        if(st.size()==0)
+        {
+            b[i]=i+1;
+        }
+        
+        else
+        {
+            b[i]=i-st.top();
+        }
+        st.push(i);
+    }
+    
+    for(int i=0;i<n;i++)
+    cout<<b[i]<<endl;
+    
+    
+}
