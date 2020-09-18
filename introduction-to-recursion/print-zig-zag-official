@@ -1,0 +1,27 @@
+// print-zig-zag-official
+
+#include<iostream>
+using namespace std;
+
+
+
+void yo(int n)
+{
+    if(n==0)
+    return;
+    
+    cout<<n<<" ";
+    yo(n-1);
+    cout<<n<<" ";
+    yo(n-1);
+    cout<<n<<" ";
+}
+
+
+
+int main()
+{
+    
+    int n;cin>>n;
+    yo(n);
+}
