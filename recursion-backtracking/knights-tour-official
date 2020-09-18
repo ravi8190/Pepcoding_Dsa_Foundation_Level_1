@@ -1,0 +1,61 @@
+// knights-tour-official
+
+#include<iostream>
+using namespace std;
+
+void displayBoard(int** chess,int n)
+    {
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                cout<<chess[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+
+        cout<<endl;
+    } 
+
+
+void printKnightsTour(int **chess, int r,int c,int move,int n) 
+{
+     if(r < 0 || c < 0 || r >= n || c >= n || chess[r][c] != 0)
+     {
+            return;
+        } 
+        else if(move == n * n)
+        {
+            chess[r][c] = move;
+            displayBoard(chess,n);
+            chess[r][c] = 0;    
+            return;
+        }
+    
+    
+    
+        chess[r][c] = move;
+        printKnightsTour(chess,r-2,c+1,move+1,n);
+        printKnightsTour(chess,r-1,c+2,move+1,n);
+        printKnightsTour(chess,r+1,c+2,move+1,n);
+        printKnightsTour(chess,r+2,c+1,move+1,n);
+        printKnightsTour(chess,r+2,c-1,move+1,n);
+        printKnightsTour(chess,r+1,c-2,move+1,n);
+        printKnightsTour(chess,r-1,c-2,move+1,n);
+        printKnightsTour(chess,r-2,c-1,move+1,n);
+        chess[r][c] = 0;
+        
+        
+    }
+    
+int main()
+{
+int n;cin>>n;
+int r;cin>>r;
+int c;cin>>c;
+    int **chess;
+    chess = new int *[n];
+    for(int i = 0; i <n; i++)
+    chess[i] = new int[n];
+printKnightsTour(chess,r,c,1,n);
+
+    
+}
