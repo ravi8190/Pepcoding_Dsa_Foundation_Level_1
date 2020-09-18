@@ -1,0 +1,106 @@
+// infix-conversions-official
+
+#include <iostream> 
+#include <stack>
+    using namespace std;
+
+int precedence(char op) {
+    if (op == '+') {
+        return 1;
+    } else if (op == '-') {
+        return 1;
+    } else if (op == '*') {
+        return 2;
+    } else {
+        return 2;
+    }
+}
+int main() {
+    string s;
+    cin >> s;
+    stack < string > postfix;
+    stack < string > prefix;
+    stack < char > operators;
+
+    for (int i = 0; i < s.length(); i++) {
+        char ch = s[i];
+        
+        if(ch=='(')
+        {
+        operators.push(ch);
+        }        
+
+
+        else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
+            while (operators.size() > 0 && operators.top() != '(' &&
+                precedence(ch) <= precedence(operators.top())) {
+                char op = operators.top();
+                operators.pop();
+
+                string postval2 = postfix.top();
+                postfix.pop();
+                string postval1 = postfix.top();
+                postfix.pop();
+                postfix.push(postval1 + postval2 + op);
+
+                string preval2 = prefix.top();
+                prefix.pop();
+                string preval1 = prefix.top();
+                prefix.pop();
+                prefix.push(op + preval1 + preval2);
+            }
+
+            operators.push(ch);
+        }
+        else if (ch == ')') {
+            while (operators.size() > 0 && operators.top() != '(') {
+                char op = operators.top();
+                operators.pop();
+
+                string postval2 = postfix.top();
+                postfix.pop();
+                string postval1 = postfix.top();
+                postfix.pop();
+                postfix.push(postval1 + postval2 + op);
+
+                string preval2 = prefix.top();
+                prefix.pop();
+                string preval1 = prefix.top();
+                prefix.pop();
+                prefix.push(op + preval1 + preval2);
+            }
+            
+            operators.pop();
+
+        }
+        else
+        {
+            string z;
+            z.push_back(ch);
+            prefix.push(z);
+            postfix.push(z);
+            
+            
+        }
+    }
+
+    while (operators.size() > 0) {
+        char op = operators.top();
+        operators.pop();
+
+        string postval2 = postfix.top();
+        postfix.pop();
+        string postval1 = postfix.top();
+        postfix.pop();
+        postfix.push(postval1 + postval2 + op);
+
+        string preval2 = prefix.top();
+        prefix.pop();
+        string preval1 = prefix.top();
+        prefix.pop();
+        prefix.push(op + preval1 + preval2);
+    }
+
+    cout << postfix.top() << endl;
+    cout << prefix.top() << endl;
+}
