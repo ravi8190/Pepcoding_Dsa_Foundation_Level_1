@@ -1,0 +1,37 @@
+//smallest-number-following-pattern-official
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    string p;cin>>p;
+    stack<int> st;
+    int num=1;
+    for(int i=0;i<p.length();i++)
+    {
+      char ch = p[i];
+      if(ch=='d')
+      {
+      st.push(num);
+      num++;
+      }
+      else if(ch=='i')
+      {
+          st.push(num);
+          num++;
+          
+          while(st.size()>0)
+          {
+              cout<<st.top();
+              st.pop();
+          }
+      }
+      
+    }
+    st.push(num);
+    while(st.size()>0)
+    {
+        cout<<st.top();
+        st.pop();
+    }
+}
