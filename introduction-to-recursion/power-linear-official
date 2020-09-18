@@ -1,0 +1,25 @@
+// power-linear-official
+
+#include<iostream>
+using namespace std;
+
+
+int pow(int a,int n)
+{
+
+if(n==0)
+return 1;
+    
+int pm1=pow(a,n-1);
+int p1=pm1*a;
+return p1;
+
+}
+
+int main()
+{
+    int a;cin>>a;
+    int n;cin>>n;
+    int p=pow(a,n);
+    cout<<p<<endl;
+}
