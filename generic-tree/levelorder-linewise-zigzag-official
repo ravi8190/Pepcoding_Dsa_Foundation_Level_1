@@ -1,0 +1,154 @@
+// levelorder-linewise-zigzag-official
+
+#include <bits/stdc++.h>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    vector<Node *> children;
+};
+
+Node *construct(int arr[], int n)
+{
+    Node *root = NULL;
+    stack<Node *> st;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == -1)
+        {
+            if (st.size() != 0)
+                st.pop();
+        }
+        else
+        {
+            Node *t = new Node();
+            t->data = arr[i];
+
+            if (st.size() > 0)
+            {
+                Node *top = st.top();
+                top->children.push_back(t);
+            }
+
+            else
+            {
+                root = t;
+            }
+            st.push(t);
+        }
+    }
+    return root;
+};
+
+int size(Node *node)
+{
+    int s = 0;
+
+    for (int i = 0; i < node->children.size(); i++)
+    {
+        s += size(node->children[i]);
+    }
+    s += 1;
+
+    return s;
+}
+
+void display(Node *root)
+{
+    if(root == NULL)return;
+    string str = to_string(root->data) + "->";
+    for (Node* child : root->children)
+    {
+        str +=to_string(child->data) + ",";
+    }
+    str += ".";
+    // cout << (str) << endl;
+
+    // for (Node * child : root->children)
+    // {
+    //     display(child);
+    // }
+}
+
+int maxy(Node *root)
+{
+    int m=INT_MIN;
+    for(Node* child: root->children)
+    {
+        int cm=maxy(child);
+        m=max(m,cm);
+    
+    }
+    m=max(root->data,m);
+    
+    return m;
+}
+int height(Node *root)
+{
+    int ht=-1;
+    for(Node* child:root->children)
+    {
+        int m=height(child);
+        ht=max(m,ht); 
+    }
+    ht+=1;
+    
+    return ht;
+}
+
+void zigzag(Node *root)
+{
+    stack<Node*> ms;
+    ms.push(root);
+    
+    stack<Node*> cs;
+    int level=1;
+    
+    while(ms.size()>0)
+    {
+        root=ms.top();
+        ms.pop();
+        cout<<root->data<<" ";
+        
+        if(level%2==1)
+        {
+         for(int i = 0; i < root->children.size(); i++){
+            Node *child = root->children[i];
+            cs.push(child);
+         }
+        }
+         
+         else
+         {
+         for(int i = root->children.size() - 1; i >= 0; i--){
+           Node *child = root->children[i];
+            cs.push(child);
+         }
+         }
+        
+        if(ms.size() == 0){
+          swap(ms,cs);
+          stack<Node*> cs;
+          level++;
+          cout<<endl;
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    Node *root = construct(arr, n);
+     zigzag(root);
+    // int sz = height(root);
+    // cout << sz <<endl;
+}
