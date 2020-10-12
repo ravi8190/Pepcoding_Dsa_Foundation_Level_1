@@ -1,0 +1,33 @@
+#include<iostream>
+#include <unordered_map>
+#include <set>
+using namespace std;
+int main()
+{
+    string str;
+    cin >> str;
+    unordered_map<char, int> fmap;
+
+    for (int i = 0; i < str.length(); i++)
+    {
+        char ch = str[i];
+        fmap[ch]++;
+    }
+
+    set<char> keys;
+
+    for(auto i : fmap){
+        keys.insert(i.first);
+    }
+
+    char ch = str[0];
+    for (char key : keys)
+    {
+        if (fmap.at(key) > fmap.at(ch))
+        {
+            ch = key;
+        }
+    }
+
+    cout << ch << endl;
+}
