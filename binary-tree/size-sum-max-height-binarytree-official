@@ -1,0 +1,118 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+public:
+    int data;
+    node *left;
+    node *right;
+
+    node(int d)
+    {
+        data = d;
+        left = right = NULL;
+    }
+};
+
+node *CreateTree()
+{
+    string v;
+    cin >> v;
+    
+    if (v == "n")
+    {
+        return NULL;
+    }
+    
+    int w=stoi(v);
+    node *root = new node(w);
+    root->left = CreateTree();
+    root->right = CreateTree();
+    return root;
+}
+
+void preorder(node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+void inorder(node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+void postorder(node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->data << " ";
+}
+int size(node *root) {
+    if (root == NULL)
+    {
+      return 0;
+    }
+
+    int ls = size(root->left);
+    int rs = size(root->right);
+    int ts = ls + rs + 1;
+    return ts;
+  }
+  
+  int sum(node *root) {
+    if (root == NULL) {
+      return 0;
+    }
+
+    int ls = sum(root->left);
+    int rs = sum(root->right);
+    int ts = ls + rs + root->data;
+    return ts;
+  }
+  int max(node *root) {
+    if(root == NULL){
+      return -1;
+    }
+
+    int lm = max(root->left);
+    int rm = max(root->right);
+    int tm = max(root->data,max(lm, rm));
+    return tm;
+  }
+  int height(node *root) {
+    if(root == NULL){
+      return -1;
+    }
+    
+    int lh = height(root->left);
+    int rh = height(root->right);
+    int th = max(lh, rh) + 1;
+    return th;
+  }
+int main()
+{
+    int p;cin>>p;
+    node *root = CreateTree();
+    cout<<size(root)<<endl;
+    cout<<sum(root)<<endl;
+    cout<<max(root)<<endl;
+    cout<<height(root)<<endl;
+    return 0;
+}
