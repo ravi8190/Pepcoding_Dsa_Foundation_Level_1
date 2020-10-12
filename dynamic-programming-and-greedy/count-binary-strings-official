@@ -1,0 +1,23 @@
+//count-binary-strings-official
+
+#include<iostream>
+using namespace std;
+int main()
+{
+    int n;cin>>n;
+    int old0=1;
+    int old1=1;
+    int new0,new1;
+    
+    for(int i=2;i<=n;i++)
+    {
+        new0=old1;
+        new1=old0+old1;
+        
+        old0=new0;
+        old1=new1;
+    }
+    cout<<old0+old1<<endl;
+    
+    
+}
