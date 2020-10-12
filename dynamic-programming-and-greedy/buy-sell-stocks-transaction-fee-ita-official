@@ -1,0 +1,42 @@
+//buy-sell-stocks-transaction-fee-ita-official
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n;cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    int fee;cin>>fee;
+    
+    int obsp=-a[0];
+    int ossp=0;
+    
+    for(int i=1;i<n;i++ )
+    {
+        int nbsp=0;
+        int nssp=0;
+    
+        if(ossp-a[i]>obsp)
+        {
+            nbsp=ossp-a[i];
+        }
+        else{
+            nbsp=obsp;
+        }
+    
+        if(obsp+a[i]-fee>ossp)
+        {
+            nssp=obsp+a[i]-fee;
+        }
+        else
+        {
+            nssp=ossp;
+        }
+        
+        obsp=nbsp;
+        ossp=nssp;
+    } 
+    cout<<ossp<<endl;
+}
