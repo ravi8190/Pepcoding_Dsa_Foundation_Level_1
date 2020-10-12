@@ -1,0 +1,90 @@
+#include <iostream>
+using namespace std;
+
+// Data structure to store a Binary Search Tree node
+struct Node
+{
+	int data;
+	Node *left, *right;
+};
+
+// Function to create a new binary tree node having given key
+Node* newNode(int key)
+{
+	Node* node = new Node;
+	node->data = key;
+	node->left = node->right = nullptr;
+
+	return node;
+}
+
+// Function to perform inorder traversal of the tree
+void inorder(Node* root)
+{
+	if (root == nullptr)
+		return;
+
+	inorder(root->left);
+	cout << root->data << " ";
+	inorder(root->right);
+}
+
+// Recursive function to insert a key into BST
+Node* insert(Node* root, int key)
+{
+	// if the root is null, create a new node and return it
+	if (root == nullptr)
+		return newNode(key);
+		
+	if (key == root->data) 
+    { 
+        return root; 
+    } 
+
+	// if given key is less than the root node, recur for left subtree
+	if (key < root->data)
+		root->left = insert(root->left, key);
+
+	// if given key is more than the root node, recur for right subtree
+	else
+		root->right = insert(root->right, key);
+
+	return root;
+}
+void traversalInOrder(Node *root)
+{
+    if(root != NULL)
+    {
+    string str = "";
+    str += (root->left) == NULL ? "." : to_string(root->left->data) + "";
+    str += " <- " + to_string(root->data) + " -> ";
+    str += (root->right) == NULL ? "." : to_string(root->right->data) + "";
+    cout<<str<<endl;
+
+    traversalInOrder(root->left);
+    traversalInOrder(root->right);
+    }
+}
+
+int main()
+{
+	Node* root = nullptr;
+	int n;cin>>n;
+	for(int i=0;i<n;i++)
+    {
+         string a;
+        cin>>a;
+        
+        if(a!="n")
+        {
+            int w=stoi(a);
+           
+    root = insert(root,w);
+        }
+    }
+    int y;cin>>y;
+     root = insert(root,y);
+    traversalInOrder(root);
+
+	return 0;
+}
