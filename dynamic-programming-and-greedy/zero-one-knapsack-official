@@ -1,0 +1,46 @@
+//zero-one-knapsack-official
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n;cin>>n;
+    int vals[n];
+    int wts[n];
+    for(int i=0;i<n;i++)
+    cin>>vals[i];
+    for(int i=0;i<n;i++)
+    cin>>wts[i];  
+    
+    int cap;cin>>cap;
+    
+    // int **dp=new int[][cap+1];
+    int **dp;
+    dp=new int*[n+1];
+    for(int i=0;i<n+1;i++)
+    dp[i]=new int[cap+1];
+    
+    for(int i=1;i<n+1;i++)
+    {
+        for(int j=1;j<cap+1;j++)
+        {
+            if(j>=wts[i-1])
+            {
+                int rcap=j-wts[i-1];
+                if(dp[i-1][rcap]+vals[i-1]>dp[i-1][j])
+                {
+                    dp[i][j]=dp[i-1][rcap]+vals[i-1];
+                }
+                else
+                {
+                    dp[i][j]=dp[i-1][j];
+                }
+            }else{
+                dp[i][j]=dp[i-1][j];
+            }
+        }
+        
+    }
+    cout<<dp[n][cap]<<endl;
+    
+}
