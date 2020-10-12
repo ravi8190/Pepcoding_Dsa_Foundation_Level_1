@@ -1,0 +1,22 @@
+//arrange-buildings-official
+
+#include<iostream>
+using namespace std;
+int main()
+{
+   long long int n;cin>>n;
+   long long int ob=1,os=1; 
+   long long int nb,ns,tot;
+    for(int i=2;i<=n;i++)
+    {
+       nb=os;
+       ns=os+ob;
+      
+      ob=nb;
+      os=ns;
+    
+    tot=ob+os;
+    tot=tot*tot;
+    }
+    cout<<tot<<endl;
+}
