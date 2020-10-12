@@ -1,0 +1,28 @@
+//count-a+b+c+subsequences-official
+
+
+#include<iostream>
+using namespace std;
+int main()
+{
+    string s; cin>>s;
+    int a=0;
+    int ab=0; 
+    int abc=0;
+    for(int i=0;i<s.size();i++)
+    {
+       char ch=s[i];
+        if(ch=='a')
+        {
+            a=2*a+1;
+        }
+        if(ch=='b')
+        {
+            ab=2*ab+a;
+        }
+        if(ch=='c')
+        {
+            abc=2*abc+ab;
+        }
+    }
+    cout<<abc<<endl; }
