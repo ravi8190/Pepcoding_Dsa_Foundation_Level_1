@@ -1,0 +1,21 @@
+// paint-fence-official
+
+
+#include<bits/stdc++.h> 
+using namespace std; 
+int main()    
+{    
+    int n,k;    
+    cin>>n>>k; 
+    int same; 
+    same=k*1;    
+    int diff;diff=k*(k-1);    
+    int tot;tot=same+diff;    
+    for(int i=3;i<=n;i++)    
+    { 
+        same=diff*1;    
+        diff=tot*(k-1); 
+        tot=same+diff; 
+    } 
+    cout<<tot<<endl; 
+}
