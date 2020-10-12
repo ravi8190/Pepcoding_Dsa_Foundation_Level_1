@@ -1,0 +1,71 @@
+// paint-house-many-colors-official
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long long int n,c;cin>>n>>c;
+    long long int arr[n][c];
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<c;j++)
+        {
+            cin>>arr[i][j];
+        }
+    }
+    
+    long long int **dp;
+  dp=new long long int*[n];
+    for(int i=0;i<n;i++)
+    dp[i]=new long long int[c];
+    
+    int least=INT_MAX;
+    int sleast=INT_MAX;
+    
+    for(int i=0;i<c;i++)
+    {
+        dp[0][i]=arr[0][i];
+        
+        if(arr[0][i]<=least)
+        {
+            sleast=least;
+            least=arr[0][i];
+        }else if(arr[0][i]<=sleast)
+        {
+            sleast=arr[0][i];
+        }
+    }
+    
+    for(int i=1;i<n;i++)
+    {
+        int nleast=INT_MAX;
+        int nsleast=INT_MAX;
+        for(int j=0;j<c;j++)
+        {
+            if(least==dp[i-1][j])
+            {
+                dp[i][j]=sleast+arr[i][j];
+                
+            }
+            else
+            {
+                dp[i][j]=least+arr[i][j];
+            }
+        if(dp[i][j]<=nleast)
+        {
+            nsleast=nleast;
+            nleast=dp[i][j];
+        }else if(dp[i][j]<=nsleast)
+        {
+            nsleast=dp[i][j];
+        }
+        }
+       least=nleast;
+       sleast=nsleast;
+    }
+    
+    
+    cout<<least<<endl;
+  
+}
