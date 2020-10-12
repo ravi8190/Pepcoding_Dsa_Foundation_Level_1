@@ -1,0 +1,134 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+public:
+    int data;
+    node *left;
+    node *right;
+
+    node(int d)
+    {
+        data = d;
+        left = right = NULL;
+    }
+};
+
+node *CreateTree()
+{
+    string v;
+    cin >> v;
+    
+    if (v == "n")
+    {
+        return NULL;
+    }
+    
+    int w=stoi(v);
+    node *root = new node(w);
+    root->left = CreateTree();
+    root->right = CreateTree();
+    return root;
+}
+
+void levelorder(node *root)
+{
+    queue<node*> mq;
+    mq.push(root);
+    
+    while(mq.size()>0)
+    {
+        int cicl=mq.size();
+        
+        for(int i=0;i<cicl;i++)
+        {
+            root=mq.front();
+            mq.pop();
+            cout<<root->data<<" ";
+            
+        if(root->left != NULL){
+          mq.push(root->left);
+        }
+
+        if(root->right != NULL){
+          mq.push(root->right);
+        }
+        }
+        cout<<endl;
+    }
+}
+
+void printKLevelsDown(node *root, int k){
+    if(root == NULL || k < 0){
+      return;
+    }
+
+    if(k == 0){
+     cout<<root->data<<endl;
+      return;
+    }
+
+    printKLevelsDown(root->left, k - 1);
+    printKLevelsDown(root->right, k - 1);
+  }
+  
+
+  
+  node *transBackFromLeftClonedTree(node *root){
+    if(root == NULL){
+      return NULL;
+    }
+
+    root->left = transBackFromLeftClonedTree(root->left->left);
+    root->right = transBackFromLeftClonedTree(root->right);
+
+    return root;
+  }
+  
+  void display(node *root) {
+    if(root==NULL)
+    {
+      return;
+    }
+
+    string str = "";
+    str += (root->left) == NULL ? "." : to_string(root->left->data) + "";
+    str += " <- " + to_string(root->data) + " -> ";
+    str += (root->right) == NULL ? "." : to_string(root->right->data) + "";
+    cout<<str<<endl;
+
+    display(root->left);
+    display(root->right);
+  }
+  
+  
+  void printsinglechild(node *root,node *parent)
+  {
+      
+      if(root==NULL)
+      return;
+      
+      if(parent != NULL && parent->left == NULL && parent->right == root){
+      cout<<root->data<<endl;
+    } 
+    
+    else if(parent != NULL && parent->right == NULL && parent->left == root){
+      cout<<root->data<<endl;
+    }
+
+        printsinglechild(root->left,root);
+        printsinglechild(root->right,root);
+  }
+  
+      
+int main()
+{
+    int p;cin>>p;
+    node *root = CreateTree();
+    //root = createLeftCloneTree(root);
+    //transBackFromLeftClonedTree(root);
+    //display(root);
+    printsinglechild(root,NULL);
+    return 0;
+}
