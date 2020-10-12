@@ -1,0 +1,25 @@
+// maximum-sum-non-adjacent-elements-official
+
+
+#include<bits/stdc++.h>
+using namespace std; 
+int main()
+{
+ int n;cin>>n;
+ int a[n];
+ for(int i=0;i<n;i++)
+ cin>>a[i];
+ int oin=a[0];
+ int oex=0;
+ int nin,nex; 
+ for(int i=1;i<n;i++)
+ {
+     nin=oex+a[i];
+     nex=max(oin,oex);
+    
+    oin=nin;
+    oex=nex;
+ }
+
+ cout<<max(oin,oex)<<endl;
+}
