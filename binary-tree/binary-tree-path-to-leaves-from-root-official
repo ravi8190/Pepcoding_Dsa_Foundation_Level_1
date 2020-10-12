@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+public:
+    int data;
+    node *left;
+    node *right;
+
+    node(int d)
+    {
+        data = d;
+        left = right = NULL;
+    }
+};
+
+node *CreateTree()
+{
+    string v;
+    cin >> v;
+    
+    if (v == "n")
+    {
+        return NULL;
+    }
+    
+    int w=stoi(v);
+    node *root = new node(w);
+    root->left = CreateTree();
+    root->right = CreateTree();
+    return root;
+}
+
+void levelorder(node *root)
+{
+    queue<node*> mq;
+    mq.push(root);
+    
+    while(mq.size()>0)
+    {
+        int cicl=mq.size();
+        
+        for(int i=0;i<cicl;i++)
+        {
+            root=mq.front();
+            mq.pop();
+            cout<<root->data<<" ";
+            
+        if(root->left != NULL){
+          mq.push(root->left);
+        }
+
+        if(root->right != NULL){
+          mq.push(root->right);
+        }
+        }
+        cout<<endl;
+    }
+}
+
+void printKLevelsDown(node *root, int k){
+    if(root == NULL || k < 0){
+      return;
+    }
+
+    if(k == 0){
+     cout<<root->data<<endl;
+      return;
+    }
+
+    printKLevelsDown(root->left, k - 1);
+    printKLevelsDown(root->right, k - 1);
+  }
+  
+  
+
+ void pathToLeafFromRoot(node *root, string path, int sum, int lo, int hi){
+    if(root->left !=NULL && root->right != NULL){
+      pathToLeafFromRoot(root->left, path + to_string(root->data) + " ", sum + root->data, lo, hi);
+      pathToLeafFromRoot(root->right, path +  to_string(root->data) + " ", sum + root->data, lo, hi);
+    } else if(root->left != NULL){
+      pathToLeafFromRoot(root->left, path +  to_string(root->data) + " ", sum + root->data, lo, hi);
+    } else if(root->right != NULL){
+      pathToLeafFromRoot(root->right, path +  to_string(root->data) + " ", sum + root->data, lo, hi);
+    } else {
+      path +=  to_string(root->data);
+      sum += root->data;
+
+      if(sum >= lo && sum <= hi){
+        cout<<path<<endl;
+      }
+    }
+  }
+
+int main()
+{
+    int p;cin>>p;
+    node *root = CreateTree();
+    int lo,hi;cin>>lo>>hi;
+    pathToLeafFromRoot(root, "", 0, lo, hi);
+    return 0;
+}
