@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int n;cin>>n;
+    int nspaces = 0;
+    int nstars = n;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < nspaces; j++) {
+                cout<<"	";
+            }
+
+            for (int j = 0; j <nstars; j++) {
+                cout<<"*	";
+            }
+            cout<<endl;
+            nspaces++;
+            nstars--;
+            
+        }
+}
