@@ -1,0 +1,32 @@
+// buy-and-sell-stocks-ita-official
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n;cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    
+    int sp=0;
+    int bp=0;
+    int profit=0;
+    
+    for(int i=1;i<n;i++)
+    {
+        if(a[i]>=a[i-1])
+        {
+            sp++;
+        }
+        else
+        {
+            profit+=a[sp]-a[bp];
+            sp=i;
+            bp=i;
+        }
+    }
+    profit+=a[sp]-a[bp];
+    cout<<profit<<endl;
+}
