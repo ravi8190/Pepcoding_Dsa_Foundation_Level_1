@@ -1,0 +1,136 @@
+#include <iostream>
+using namespace std;
+
+// Data structure to store a Binary Search Tree node
+struct Node
+{
+	int data;
+	Node *left, *right;
+};
+
+// Function to create a new binary tree node having given key
+Node* newNode(int key)
+{
+	Node* node = new Node;
+	node->data = key;
+	node->left = node->right = NULL;
+
+	return node;
+}
+
+// Function to perform inorder traversal of the tree
+void inorder(Node* root)
+{
+	if (root == NULL)
+		return;
+
+	inorder(root->left);
+	cout << root->data << " ";
+	inorder(root->right);
+}
+
+// Recursive function to insert a key into BST
+Node* insert(Node* root, int key)
+{
+	// if the root is null, create a new node and return it
+	if (root == NULL)
+		return newNode(key);
+		
+	if (key == root->data) 
+    { 
+        return root; 
+    } 
+
+	// if given key is less than the root node, recur for left subtree
+	if (key < root->data)
+		root->left = insert(root->left, key);
+
+	// if given key is more than the root node, recur for right subtree
+	else
+		root->right = insert(root->right, key);
+
+	return root;
+}
+int size(Node *root) {
+    if (root == NULL)
+    {
+      return 0;
+    }
+
+    int ls = size(root->left);
+    int rs = size(root->right);
+    int ts = ls + rs + 1;
+    return ts;
+  }
+int sum(Node *root) {
+    if (root == NULL) {
+      return 0;
+    }
+
+    int ls = sum(root->left);
+    int rs = sum(root->right);
+    int ts = ls + rs + root->data;
+    return ts;
+  }
+  
+  int max(Node *root) {
+    if(root->right == NULL){
+      return root->data;
+    } else {
+      return max(root->right);
+    }
+  }
+  
+  
+  int min(Node *root) {
+    if(root->left == NULL){
+      return root->data;
+    } else {
+      return min(root->left);
+    }
+  }
+  
+  bool find(Node *root, int data){
+    if(root == NULL){
+      return false;
+    }
+
+    if(data > root->data){
+      return find(root->right, data);
+    } else if(data < root->data){
+      return find(root->left, data);
+    } else {
+      return true;
+    }
+  }  
+
+int main()
+{
+	Node* root = NULL;
+	int n;cin>>n;
+	for(int i=0;i<n;i++)
+    {
+         string a;
+        cin>>a;
+        
+        if(a!="n")
+        {
+            int w=stoi(a);
+           
+    root = insert(root,w);
+        }
+    }
+    int y;cin>>y;
+     //root = insert(root,y);
+     cout<<size(root)<<endl;
+cout<<sum(root)<<endl;
+    cout<<max(root)<<endl;
+        cout<<min(root)<<endl;
+ bool f=find(root,y);
+ if(f)
+ cout<<"true"<<endl;
+ 
+ else
+ cout<<"false"<<endl;
+	return 0;
+}
