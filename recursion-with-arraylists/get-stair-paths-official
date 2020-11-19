@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string> getStairPaths(int n)
+{
+    if(n<=0)
+    {
+        vector<string> ex;
+        if(n==0)
+        {
+            
+            string cha="";
+            ex.push_back(cha);
+           
+        }
+         return ex;
+    }
+  
+    vector<string> rres1=getStairPaths(n-1);
+    vector<string> rres2=getStairPaths(n-2);
+    vector<string> rres3=getStairPaths(n-3);
+    vector<string> myres;
+    
+    for(string sample:rres1)
+    {
+        myres.push_back(to_string(1)+sample);
+    }
+    
+    for(string sample:rres2)
+    {
+        myres.push_back(to_string(2)+sample);
+    }
+    
+    for(string sample:rres3)
+    {
+        myres.push_back(to_string(3)+sample);
+    }
+    
+    return myres;
+}
+
+int main()
+{
+   int n;
+   cin>>n;
+   vector<string> res=getStairPaths(n);
+   cout<<"[";
+    for(int i=0;i<res.size()-1;i++)
+    {
+        cout<<res[i]<<","<<" ";
+    }
+    cout<<res[res.size()-1]<<"]";
+}
