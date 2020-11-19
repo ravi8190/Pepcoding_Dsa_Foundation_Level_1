@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<string> getMazePaths(int sr,int sc,int dr,int dc)
+{
+    if(sr>dr || sc>dc)
+    {
+        vector<string> ex;
+        return ex;
+    }
+        
+        if(sr == dr && sc == dc)
+        {
+            vector<string> exx;
+            string cha="";
+            exx.push_back(cha);
+            return exx;
+        }
+         
+  
+    vector<string> paths;
+    for(int move = 1; move <= dc - sc; move++)
+    {
+            vector<string> hpaths = getMazePaths(sr, sc + move, dr, dc);
+            for(string hpath: hpaths)
+            {
+                paths.push_back("h" + to_string(move) + hpath);
+            }
+        }
+        
+    for(int move = 1; move <= dr - sr; move++)
+    {
+            vector<string> vpaths = getMazePaths(sr + move, sc, dr, dc);
+            for(string vpath: vpaths){
+                paths.push_back("v" + to_string(move) + vpath);
+            }
+        }
+  
+  for(int move = 1; move <= dc - sc && move <= dr - sr; move++)
+  {
+            vector<string> dpaths = getMazePaths(sr + move, sc + move, dr, dc);
+            for(string dpath: dpaths){
+                paths.push_back("d" + to_string(move) + dpath);
+            }
+        }
+
+ 
+    return paths;
+}
+
+int main()
+{
+   int n,m;
+   cin>>n>>m;
+   vector<string> res=getMazePaths(0,0,n-1,m-1);
+   if(res.size()==0 || n==0 || m==0)
+   {
+       cout<<"["<<"]";
+       return 0;
+   }
+   cout<<"[";
+    for(int i=0;i<res.size()-1;i++)
+    {
+        cout<<res[i]<<","<<" ";
+    }
+    cout<<res[res.size()-1]<<"]";
+}
