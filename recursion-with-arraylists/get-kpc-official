@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+static string arr[10]={".;","abc","def","ghi","jkl","mno","pqrs","tu","vwx","yz"};
+vector<string> keypad(string s){
+    if(s.size()==0){
+        vector<string> ex;
+        string cha="";
+        ex.push_back(cha);
+        return ex;
+    }
+    string in="";
+    in=in+s[0];
+    int index=stoi(in);
+    vector<string> temp=keypad(s.substr(1));
+    vector<string> myres;
+    for(int i=0;i<arr[index].size();i++){
+        char ch=arr[index][i];
+        for(string sample:temp){
+            myres.push_back(ch+sample);
+        }
+    }
+    return myres;
+}
+
+int main(){
+   string s;
+   cin>>s;
+   vector<string> res=keypad(s);
+   cout<<"[";
+    for(int i=0;i<res.size()-1;i++){
+        cout<<res[i]<<","<<" ";
+    }
+    cout<<res[res.size()-1]<<"]";
+}
